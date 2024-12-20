@@ -1,0 +1,19 @@
+<map id="myMap" scale="{{scale}}" latitude="23.099994" longitude="113.324520"></map>
+
+<view class="comment-container" style="height: {{height}}px;">
+  <!-- 顶部不参与手势协商，单独控制 -->
+  <pan-gesture-handler worklet:ongesture="handlePan" style="flex-shrink: 0;">
+    <view class="comment-header" bind:touchend="handleTouchEnd">
+      <view class="comment-handler"></view>
+      留言
+    </view>
+  </pan-gesture-handler>
+  <!-- 滚动区要与 pan 手势协商 -->
+  <pan-gesture-handler id="pan" worklet:should-response-on-move="shouldPanResponse" simultaneousHandlers="{{['scroll']}}" worklet:ongesture="handlePan">
+    <vertical-drag-gesture-handler id="scroll" native-view="scroll-view" worklet:should-response-on-move="shouldScrollViewResponse" simultaneousHandlers="{{['pan']}}">
+      <scroll-view class="comment-list" scroll-y worklet:adjust-deceleration-velocity="adjustDecelerationVelocity" worklet:onscrollupdate="handleScroll" type="list" show-scrollbar="{{false}}">
+        
+      </scroll-view>
+    </vertical-drag-gesture-handler>
+  </pan-gesture-handler>
+</view>
